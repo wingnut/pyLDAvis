@@ -1,4 +1,4 @@
-pyLDAvis
+pyLDAvis - Without state updates to browser location 
 ========
 
 Python library for interactive topic model visualization.
