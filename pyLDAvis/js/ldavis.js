@@ -166,8 +166,7 @@ var LDAvis = function(to_select, data_or_file_name) {
                 // transition the order of the bars
                 var increased = lambda.old < vis_state.lambda;
                 if (vis_state.topic > 0) reorder_bars(increased);
-                // store the current lambda value
-                state_save(true);
+
                 document.getElementById(lambdaID).value = vis_state.lambda;
             });
 
@@ -184,7 +183,6 @@ var LDAvis = function(to_select, data_or_file_name) {
                 topic_off(document.getElementById(topicID + value_old));
                 topic_on(document.getElementById(topicID + value_new));
                 vis_state.topic = value_new;
-                state_save(true);
             });
 
         d3.select("#" + topicDown)
@@ -200,7 +198,6 @@ var LDAvis = function(to_select, data_or_file_name) {
                 topic_off(document.getElementById(topicID + value_old));
                 topic_on(document.getElementById(topicID + value_new));
                 vis_state.topic = value_new;
-                state_save(true);
             });
 
         d3.select("#" + topicID)
@@ -215,7 +212,6 @@ var LDAvis = function(to_select, data_or_file_name) {
                     value_new = Math.min(K, Math.max(1, value_new));
                     topic_on(document.getElementById(topicID + value_new));
                     vis_state.topic = value_new;
-                    state_save(true);
                     document.getElementById(topicID).value = vis_state.topic;
                 }
             });
@@ -223,7 +219,6 @@ var LDAvis = function(to_select, data_or_file_name) {
         d3.select("#" + topicClear)
             .on("click", function() {
                 state_reset();
-                state_save(true);
             });
 
         // create linear scaling to pixels (and add some padding on outer region of scatterplot)
@@ -278,7 +273,6 @@ var LDAvis = function(to_select, data_or_file_name) {
             .attr("opacity", 0)
             .on("click", function() {
                 state_reset();
-                state_save(true);
             });
 
         mdsplot.append("line") // draw x-axis
@@ -428,7 +422,6 @@ var LDAvis = function(to_select, data_or_file_name) {
                 }
                 // make sure topic input box value and fragment reflects clicked selection
                 document.getElementById(topicID).value = vis_state.topic = d.topics;
-                state_save(true);
                 topic_on(this);
             })
             .on("mouseout", function(d) {
@@ -560,14 +553,12 @@ var LDAvis = function(to_select, data_or_file_name) {
         //         term_off(document.getElementById(old_term));
         //     }
         //     vis_state.term = d.Term;
-        //     state_save(true);
         //     term_on(this);
         //     debugger;
         // })
             .on("mouseout", function() {
                 vis_state.term = "";
                 term_off(this);
-                state_save(true);
             });
 
         var title = chart.append("text")
@@ -825,13 +816,11 @@ var LDAvis = function(to_select, data_or_file_name) {
             //     term_off(document.getElementById(old_term));
             //     }
             //     vis_state.term = d.Term;
-            //     state_save(true);
             //     term_on(this);
             // })
                     .on("mouseout", function() {
                         vis_state.term = "";
                         term_off(this);
-                        state_save(true);
                     });
 
             var redbarsEnter = redbars.enter().append("rect")
@@ -1203,7 +1192,6 @@ var LDAvis = function(to_select, data_or_file_name) {
             }
             vis_state.term = term.innerHTML;
             term_on(term);
-            state_save(true);
         }
         // updates vis when a term is selected via click or hover
         function term_on(term) {
@@ -1350,13 +1338,6 @@ var LDAvis = function(to_select, data_or_file_name) {
                 "&lambda=" + vis_state.lambda + "&term=" + vis_state.term;
         }
 
-        function state_save(replace) {
-            if (replace)
-                history.replaceState(vis_state, "Query", state_url());
-            else
-                history.pushState(vis_state, "Query", state_url());
-        }
-
         function state_reset() {
             if (vis_state.topic > 0) {
                 topic_off(document.getElementById(topicID + vis_state.topic));
@@ -1366,7 +1347,6 @@ var LDAvis = function(to_select, data_or_file_name) {
             }
             vis_state.term = "";
             document.getElementById(topicID).value = vis_state.topic = 0;
-            state_save(true);
         }
 
     }
