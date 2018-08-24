@@ -1,4 +1,9 @@
-Clone of bmabey/pyLDAvis - Without state updates to browser location 
+Clone of bmabey/pyLDAvis - Without state updates to browser location
+JUST MAKE SURE TO USE THE UPDATED JAVASCRIPT FILE WHERE THE BROWSER HISTORY/LOCATION UPDATES HAVE BEEN REMOVED!!!
+AND NOTE THAT THIS WILL ALSO DISABLE THE ABILITY TO SHARE A LINK TO THE GUI WITH REQUEST PARAMETERS SET!!!
+::
+   html = pyLDAvis.prepared_data_to_html(data=data, ldavis_url='https://cdn.rawgit.com/wingnut/pyLDAvis/master/pyLDAvis/js/ldavis.js')
+
 ========
 
 Python library for interactive topic model visualization.
@@ -20,11 +25,12 @@ Installation
 
 ::
 
-    pip install pyldavis
+    pip install git+https://github.com/wingnut/pyLDAvis.git
+      
+    // Then make sure to use the modified javascript file where the state updates to browser location/history have been stripped
+    // The sklearn example from the cloned original with updates:
+    html = pyLDAvis.prepared_data_to_html(data=data, ldavis_url='https://cdn.rawgit.com/wingnut/pyLDAvis/master/pyLDAvis/js/ldavis.js')
 
--  Development version on GitHub
-
-Clone the repository and run ``python setup.py``
 
 Usage
 ~~~~~~~~~~~~~~~~~~~~~~
