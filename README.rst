@@ -1,4 +1,4 @@
-pyLDAvis - Without state updates to browser location 
+Clone of bmabey/pyLDAvis - Without state updates to browser location 
 ========
 
 Python library for interactive topic model visualization.
