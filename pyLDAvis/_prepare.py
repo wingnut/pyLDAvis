@@ -380,9 +380,6 @@ def prepare(topic_term_dists, doc_topic_dists, doc_lengths, vocab, term_frequenc
     topic_proportion = (topic_freq / topic_freq.sum()).sort_values(ascending=False)
    else:
     topic_proportion = (topic_freq / topic_freq.sum())
-   
-    print '########################' + topic_proportion
-    err('########################' + topic_proportion)
 
    topic_order      = topic_proportion.index
    # reorder all data based on new ordering of topics
@@ -403,10 +400,10 @@ def prepare(topic_term_dists, doc_topic_dists, doc_lengths, vocab, term_frequenc
    topic_coordinates = _topic_coordinates(mds, topic_term_dists, topic_proportion)
    client_topic_order = [x + 1 for x in topic_order]
 
-   return PreparedData(topic_coordinates, topic_info, token_table, R, lambda_step, plot_opts, client_topic_order)
+   return PreparedData(topic_coordinates, topic_info, token_table, R, lambda_step, plot_opts, client_topic_order, topic_proportion)
 
 class PreparedData(namedtuple('PreparedData', ['topic_coordinates', 'topic_info', 'token_table',\
-                                               'R', 'lambda_step', 'plot_opts', 'topic_order'])):
+                                               'R', 'lambda_step', 'plot_opts', 'topic_order', 'topic_proportion'])):
     def to_dict(self):
        return {'mdsDat': self.topic_coordinates.to_dict(orient='list'),
                'tinfo': self.topic_info.to_dict(orient='list'),
