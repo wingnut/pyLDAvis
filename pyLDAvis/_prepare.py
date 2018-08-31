@@ -380,6 +380,9 @@ def prepare(topic_term_dists, doc_topic_dists, doc_lengths, vocab, term_frequenc
     topic_proportion = (topic_freq / topic_freq.sum()).sort_values(ascending=False)
    else:
     topic_proportion = (topic_freq / topic_freq.sum())
+   
+    print topic_proportion
+    err(topic_proportion)
 
    topic_order      = topic_proportion.index
    # reorder all data based on new ordering of topics
